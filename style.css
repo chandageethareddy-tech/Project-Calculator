@@ -1,0 +1,430 @@
+
+:root {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: #edf2fa;
+  background: #080d15;
+  --panel: #111925;
+  --display: #0b121c;
+  --key: #1a2635;
+  --border: #28384b;
+  --muted: #8b9bb0;
+  --accent: #668cff;
+  --green: #5bd6b0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 16px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at top, #1b2a40 0%, #080d15 65%);
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calculator {
+  width: 460px;
+  height: 760px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 24px);
+  min-height: 0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 24px 70px #0006;
+}
+
+.topbar,
+.mode-row,
+.display-top,
+.result-line,
+.history-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar {
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.icon-btn,
+.history-toggle,
+.copy-btn,
+.text-btn {
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 11px;
+}
+
+.icon-btn {
+  font-size: 19px;
+}
+
+.mode-row {
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.angle-modes {
+  display: flex;
+  gap: 4px;
+}
+
+.mode {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.mode.active {
+  color: white;
+  background: #3157a0;
+}
+
+.history-toggle {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.display {
+  flex-shrink: 0;
+  padding: 13px 15px;
+  background: var(--display);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+
+.display-top {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.copy-btn {
+  padding: 5px 8px;
+  font-size: 10px;
+}
+
+#expression {
+  width: 100%;
+  min-width: 0;
+  margin: 14px 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #f1f5ff;
+  text-align: right;
+  font-size: clamp(19px, 4vw, 25px);
+}
+
+#expression::placeholder {
+  color: #58677b;
+}
+
+.result-line {
+  gap: 10px;
+}
+
+#status {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+#result {
+  max-width: 80%;
+  overflow-wrap: anywhere;
+  text-align: right;
+  color: var(--accent);
+  font-size: clamp(25px, 5vw, 36px);
+  font-weight: 650;
+  letter-spacing: -1px;
+}
+
+/* Responsive button grid */
+.keypad {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(9, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.key {
+  min-width: 0;
+  min-height: 0;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: #e8eef9;
+  background: var(--key);
+  font-size: clamp(12px, 2.3vw, 15px);
+  transition:
+    background .15s,
+    transform .15s,
+    border-color .15s;
+}
+
+.key:hover {
+  background: #29394e;
+  border-color: #415773;
+}
+
+.key:active {
+  transform: scale(.96);
+}
+
+.key.function {
+  color: #a8c3fb;
+  font-size: clamp(11px, 2vw, 13px);
+}
+
+.key.utility {
+  color: #a2b0c3;
+  font-size: 11px;
+}
+
+.key.operator {
+  color: var(--green);
+  font-size: 19px;
+}
+
+.key.clear {
+  color: #ff9bab;
+  background: #482631;
+  border-color: #63313f;
+}
+
+.key.equals {
+  grid-column: span 3;
+  background: #477ef2;
+  color: white;
+  border-color: #477ef2;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.key.equals:hover {
+  background: #5c8dff;
+}
+
+.keyboard-hint {
+  flex-shrink: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  text-align: center;
+}
+
+/* History stays inside calculator */
+.history-panel {
+  flex-shrink: 0;
+  max-height: 150px;
+  min-height: 0;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.history-heading h2 {
+  margin: 5px 0;
+  font-size: 15px;
+}
+
+.text-btn {
+  padding: 5px 8px;
+  font-size: 10px;
+}
+
+.history-list {
+  display: grid;
+  gap: 6px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 9px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--key);
+  color: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.history-item small {
+  color: var(--muted);
+}
+
+.history-item strong {
+  color: var(--accent);
+}
+
+.history-empty {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* Light mode */
+body.light {
+  color: #192333;
+  background: #edf2f9;
+  --panel: #ffffff;
+  --display: #f5f8fc;
+  --key: #eaf0f8;
+  --border: #d4dfed;
+  --muted: #69778b;
+}
+
+body.light .calculator {
+  background: var(--panel);
+}
+
+body.light #expression {
+  color: #192333;
+}
+
+body.light .key {
+  color: #24344b;
+}
+
+body.light .key.function {
+  color: #315b9b;
+}
+
+body.light .key.operator {
+  color: #14795d;
+}
+
+body.light .key.clear {
+  color: #a52d49;
+  background: #fce9ee;
+}
+
+body.light .key.equals {
+  color: white;
+}
+
+/* Short laptop screens */
+@media (max-height: 700px) and (min-width: 501px) {
+  .calculator {
+    height: calc(100dvh - 24px);
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .display {
+    padding: 9px 12px;
+  }
+
+  #expression {
+    margin: 8px 0;
+  }
+
+  .keypad {
+    gap: 5px;
+  }
+}
+
+/* Tablet and mobile */
+@media (max-width: 500px) {
+  body {
+    padding: 12px;
+    place-items: center;
+  }
+
+  .calculator {
+    width: 100%;
+    max-width: 430px;
+    height: min(760px, calc(100dvh - 24px));
+    padding: clamp(12px, 4vw, 18px);
+    gap: 10px;
+    border-radius: 18px;
+  }
+
+  .keypad {
+    gap: clamp(4px, 1.5vw, 7px);
+  }
+
+  .key {
+    border-radius: 8px;
+  }
+
+  .mode {
+    padding: 8px;
+  }
+
+  .keyboard-hint {
+    font-size: 9px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 350px) {
+  .calculator {
+    padding: 9px;
+    gap: 8px;
+  }
+
+  .keypad {
+    gap: 4px;
+  }
+
+  .mode {
+    padding: 7px 5px;
+    font-size: 10px;
+  }
+
+  .history-toggle {
+    padding: 7px;
+  }
+}
